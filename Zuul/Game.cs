@@ -5,12 +5,13 @@ namespace Zuul
 	public class Game
 	{
 		private Parser parser;
-		private Room currentRoom;
+		private Player player;
 
 		public Game ()
 		{
-			CreateRooms();
 			parser = new Parser();
+			player = new Player();
+			CreateRooms();
 		}
 
 		private void CreateRooms()
@@ -20,7 +21,10 @@ namespace Zuul
 			Room theatre = new Room("in a lecture theatre");
 			Room pub = new Room("in the campus pub");
 			Room lab = new Room("in a computing lab");
+            Room basement = new Room("in the computing lab basement");
 			Room office = new Room("in the computing admin office");
+
+			player.CurrentRoom = outside;
 
 			// initialise room exits
 			outside.AddExit("east", theatre);
@@ -33,10 +37,11 @@ namespace Zuul
 
 			lab.AddExit("north", outside);
 			lab.AddExit("east", office);
+            lab.AddExit("down", basement);
+
+			basement.AddExit("up", lab);
 
 			office.AddExit("west", lab);
-
-			currentRoom = outside;  // start game outside
 		}
 
 		/**
@@ -69,7 +74,7 @@ namespace Zuul
 			Console.WriteLine("Zuul is a new, incredibly boring adventure game.");
 			Console.WriteLine("Type 'help' if you need help.");
 			Console.WriteLine();
-			Console.WriteLine(currentRoom.GetLongDescription());
+			Console.WriteLine(player.CurrentRoom.GetLongDescription());
 		}
 
 		/**
@@ -99,6 +104,12 @@ namespace Zuul
 				case "quit":
 					wantToQuit = true;
 					break;
+				case "look":
+					Look();
+					break;
+					
+
+
 			}
 
 			return wantToQuit;
@@ -135,7 +146,7 @@ namespace Zuul
 			string direction = command.GetSecondWord();
 
 			// Try to go to the next room.
-			Room nextRoom = currentRoom.GetExit(direction);
+			Room nextRoom = player.CurrentRoom.GetExit(direction);
 
 			if (nextRoom == null)
 			{
@@ -143,10 +154,14 @@ namespace Zuul
 			}
 			else
 			{
-				currentRoom = nextRoom;
-				Console.WriteLine(currentRoom.GetLongDescription());
+				player.CurrentRoom = nextRoom;
+				Console.WriteLine(player.CurrentRoom.GetLongDescription());
 			}
 		}
-
+			
+		private void Look()
+        {
+			Console.WriteLine(player.CurrentRoom.GetLongDescription());
+        }
 	}
 }
