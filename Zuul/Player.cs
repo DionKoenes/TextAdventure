@@ -8,7 +8,7 @@ namespace Zuul
 
         public Player()
         {
-            CurrentRoom = null;S
+            CurrentRoom = null;
         }
     }
 }
