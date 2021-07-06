@@ -4,6 +4,14 @@ namespace Zuul
 {
 	public class Room
 	{
+		// field
+		private Inventory chest;
+		// property
+		public Inventory Chest
+		{
+			get { return chest; }
+		}
+
 		private string description;
 		private Dictionary<string, Room> exits; // stores exits of this room.
 
@@ -16,6 +24,8 @@ namespace Zuul
 		{
 			description = desc;
 			exits = new Dictionary<string, Room>();
+			// a Room can handle a big Inventory.
+			chest = new Inventory(50);
 		}
 
 		/**
