@@ -13,6 +13,14 @@ namespace Zuul
             health = 100;
             inventory = new Inventory(50);
         }
+        public void Status()
+        {
+            Console.WriteLine("Your current life points are: " + health + " out of 100");
+        }
+        public void Inventory()
+        {
+            Console.WriteLine("You currently have these items in you inventory:");
+        }
         public bool TakeFromChest(string itemName)
         {
             Item item = CurrentRoom.Chest.Get(itemName);
@@ -51,6 +59,7 @@ namespace Zuul
             Console.WriteLine(item + " Does not fit, the room is full. You put the " + item + " back in your backpack");
             return false;
         }
+
         public int Damage(int amount)
         {
             health = health - amount;

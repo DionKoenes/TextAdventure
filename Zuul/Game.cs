@@ -115,9 +115,12 @@ namespace Zuul
 				case "look":
 					Look();
 					break;
-					
-
-
+				case "inventory":
+					player.Inventory();
+					break;
+				case "status":
+					player.Status();
+					break;
 			}
 
 			return wantToQuit;
@@ -171,6 +174,7 @@ namespace Zuul
 		private void Look()
         {
 			Console.WriteLine(player.CurrentRoom.GetLongDescription());
+			Console.WriteLine("You look around and see these items laying around: " + );
         }
 	}
 }
