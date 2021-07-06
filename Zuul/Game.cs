@@ -56,8 +56,16 @@ namespace Zuul
 			bool finished = false;
 			while (!finished)
 			{
-				Command command = parser.GetCommand();
-				finished = ProcessCommand(command);
+				if (player.PlayerAlive())
+				{
+					Command command = parser.GetCommand();
+					finished = ProcessCommand(command);
+				}
+				else
+				{
+					finished = true;
+					Console.WriteLine("You died");
+				}
 			}
 			Console.WriteLine("Thank you for playing.");
 			Console.WriteLine("Press [Enter] to continue.");
@@ -156,6 +164,7 @@ namespace Zuul
 			{
 				player.CurrentRoom = nextRoom;
 				Console.WriteLine(player.CurrentRoom.GetLongDescription());
+				player.Damage(5);
 			}
 		}
 			

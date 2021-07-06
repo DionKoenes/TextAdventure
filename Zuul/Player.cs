@@ -6,7 +6,6 @@ namespace Zuul
     {
         public Room CurrentRoom { get; set; }
         private int health;
-        private bool isAlive;
         public Player()
         {
             CurrentRoom = null;
@@ -27,15 +26,7 @@ namespace Zuul
 
         public bool PlayerAlive()
         {
-            if (health < 1)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-            return isAlive;
+            return health > 0;
         }
     }
 }
