@@ -60,6 +60,25 @@ namespace Zuul
             return false;
         }
 
+        public string Use(Command command)
+        {
+            string itemName = command.GetSecondWord();
+            Item item = inventory.Get(itemName);
+            if(item == null)
+            {
+                Console.WriteLine("You couldn't find " + itemName + " in your backpack");
+                return "";
+            }
+            //NEEDLE
+            if(itemName == "needle")
+            {
+                Damage(20);
+                Console.WriteLine("You used your " + itemName + " and lost 20 life poinst due to an allergic reaction");
+                return "";
+            }
+            return "";
+        }
+
         public int Damage(int amount)
         {
             health = health - amount;

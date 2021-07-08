@@ -43,7 +43,7 @@ namespace Zuul
 
 			office.AddExit("west", lab);
 
-			lab.Chest.Put("Needle", new Item(10, "needle go brrrrrrrrr"));
+			lab.Chest.Put("needle", new Item(10, "needle go brrrrrrrrr"));
 		}
 
 		/**
@@ -128,6 +128,9 @@ namespace Zuul
 					break;
 				case "drop":
 					Drop(command);
+					break;
+				case "use":
+					player.Use(command);
 					break;
 			}
 
