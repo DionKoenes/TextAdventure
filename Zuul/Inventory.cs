@@ -12,16 +12,6 @@ namespace Zuul
             this.maxWeight = maxWeight;
             this.items = new Dictionary<string, Item>();
         }
-
-        public string ShowItem()
-        {
-               foreach (KeyValuePair<string, Item> entry in items)
-            {
-                return "These are the items in the room: " + entry.Key;
-            }
-            return "There are no items in the room";
-        }
-
         public int CurrentWeight()
         {
             int totalWeight = 0;
@@ -31,7 +21,6 @@ namespace Zuul
             }
             return totalWeight;
         }
-
         public bool Put(string itemName, Item item)
         {
             if (CurrentWeight() + item.Weight <= maxWeight)
@@ -53,6 +42,22 @@ namespace Zuul
                 return item;
             }
             return null;
+        }
+        public string CheckRoomItems()
+        {
+            foreach (KeyValuePair<string, Item> entry in items)
+            {
+                return ("These items are in the room: " + entry.Key);
+            }
+            return ("There are no items in this room.");
+        }
+        public string CheckInvItems()
+        {
+            foreach (KeyValuePair<string, Item> entry in items)
+            {
+                return ("These items are in your inventory: " + entry.Key);
+            }
+            return ("There are no items in your inventory.");
         }
     }
 }

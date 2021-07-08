@@ -42,6 +42,8 @@ namespace Zuul
 			basement.AddExit("up", lab);
 
 			office.AddExit("west", lab);
+
+			lab.Chest.Put("Needle", new Item(10, "needle go brrrrrrrrr"));
 		}
 
 		/**
@@ -121,6 +123,12 @@ namespace Zuul
 				case "status":
 					player.Status();
 					break;
+				case "take":
+					Take(command);
+					break;
+				case "drop":
+					Drop(command);
+					break;
 			}
 
 			return wantToQuit;
@@ -174,7 +182,22 @@ namespace Zuul
 		private void Look()
         {
 			Console.WriteLine(player.CurrentRoom.GetLongDescription());
-			Console.WriteLine("You look around and see these items laying around: " + );
+			Console.WriteLine(player.CurrentRoom.Chest.CheckRoomItems());
         }
+
+		private void Take(Command command)
+        {
+			if ((command).HasSecondWord())
+            {
+				player.TakeFromChest(command.GetSecondWord());
+            }
+        }
+		private void Drop(Command command)
+		{
+			if ((command).HasSecondWord())
+			{
+				player.DropToChest(command.GetSecondWord());
+			}
+		}
 	}
 }

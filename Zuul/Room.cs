@@ -5,7 +5,7 @@ namespace Zuul
 	public class Room
 	{
 		// field
-		private Inventory chest;
+		public Inventory chest;
 		// property
 		public Inventory Chest
 		{
