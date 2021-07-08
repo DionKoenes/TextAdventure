@@ -76,6 +76,15 @@ namespace Zuul
                 Console.WriteLine("You used your " + itemName + " and lost 20 life poinst due to an allergic reaction");
                 return "";
             }
+            //BASEMENT KEY
+            if(itemName == "basement_key")
+            {
+                string exitstring = command.GetThirdWord();
+                Room next = CurrentRoom.GetExit(exitstring);
+                next.UnlockDoor();
+                Console.WriteLine("You used your " + itemName + " and opened the basement door");
+                return "";
+            }
             return "";
         }
 

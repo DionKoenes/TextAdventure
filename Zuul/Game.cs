@@ -6,6 +6,7 @@ namespace Zuul
 	{
 		private Parser parser;
 		private Player player;
+		private bool endGame = false;
 
 		public Game ()
 		{
@@ -13,7 +14,7 @@ namespace Zuul
 			player = new Player();
 			CreateRooms();
 		}
-
+		
 		private void CreateRooms()
 		{
 			// create the rooms
@@ -43,7 +44,11 @@ namespace Zuul
 
 			office.AddExit("west", lab);
 
-			lab.Chest.Put("needle", new Item(10, "needle go brrrrrrrrr"));
+			basement.Chest.Put("needle", new Item(10, "needle go brrrrrrrrr"));
+			lab.Chest.Put("basement_key", new Item(10, "this key looks like it belongs to the basement door"));
+
+			basement.LockDoor();
+			office.Finishgame = true;
 		}
 
 		/**
@@ -62,6 +67,11 @@ namespace Zuul
 				{
 					Command command = parser.GetCommand();
 					finished = ProcessCommand(command);
+					if(player.CurrentRoom.Finishgame)
+                    {
+						finished = true;
+						Console.WriteLine("You finished the game!");
+                    }
 				}
 				else
 				{
@@ -176,6 +186,11 @@ namespace Zuul
 			}
 			else
 			{
+                if(nextRoom.Locked)
+				{
+					Console.WriteLine("It seems like this door is locked, maybe a key could be the solution");
+					return;
+                }
 				player.CurrentRoom = nextRoom;
 				Console.WriteLine(player.CurrentRoom.GetLongDescription());
 				player.Damage(5);

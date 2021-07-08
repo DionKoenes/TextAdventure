@@ -6,7 +6,28 @@ namespace Zuul
 	{
 		// field
 		public Inventory chest;
+		private bool locked;
+		private bool finishgame = false;
 		// property
+		public bool Locked { get { return locked; } set { locked = value; } }
+		public bool Finishgame { get { return finishgame; } set { finishgame = value; } }
+		public bool UnlockDoor()
+        {
+			if(locked == true)
+            {
+				locked = false;
+            }
+			return true;
+        }
+		public bool LockDoor()
+        {
+			if(locked == false)
+            {
+				locked = true;
+            }
+			return true;
+        }
+		
 		public Inventory Chest
 		{
 			get { return chest; }
